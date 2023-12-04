@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const cors = require("cors");
 
 const categoriesRouter = require("./routes/categories");
+const questionsRouter = require("./routes/questions");
+
+app.use(cors());
+
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -11,6 +16,7 @@ app.use(
 );
 
 app.use("/categories", categoriesRouter);
+app.use("/questions", questionsRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
