@@ -8,14 +8,22 @@ const io = require("socket.io")(4000, {
     origin: "*",
   },
 });
-
+let finalScore = 0;
 io.on("connection", (socket) => {
-  console.log("connected from" + socket.id);
+  console.log("connected from " + socket.id);
+
   socket.on("username", (username) => {
     console.log(username);
   });
+
   socket.on("score", (score) => {
-    console.log(score);
+    // console.log(score);
+    finalScore = score;
+  });
+
+  socket.on("sendScore", () => {
+    // console.log(finalScore);
+    io.emit("sendScore", finalScore);
   });
 });
 
