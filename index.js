@@ -9,15 +9,17 @@ const io = require("socket.io")(4000, {
   },
 });
 let finalScore = 0;
+let user = "";
 io.on("connection", (socket) => {
   console.log("connected from " + socket.id);
 
   socket.on("username", (username) => {
     console.log(username);
+    user = username;
   });
 
   socket.on("score", (score) => {
-    // console.log(score);
+    console.log(score + " from " + user);
     finalScore = score;
   });
 
